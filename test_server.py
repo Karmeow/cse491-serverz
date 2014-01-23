@@ -26,6 +26,18 @@ class FakeConnection(object):
         self.is_closed = True
 
 # Test a basic GET call.
+# ^ ~CAT : This is the ONLY comment in the file, and it just seems out of place.
+# Either document them all, or document none. Obviously the former is more
+# preferred.
+# Here's an optional suggested format for function declarations:
+# def function_name(params):
+#     "Function Documentation"
+#     # Code goes here
+#
+# If you use this format, I think you'll start to like it quite a bit. You can
+# also use triple-quoted strings for the function documentation, just like ctb
+# did with the documentation on the FakeConnection class above.
+# Again, just a suggestion, but either way, BE CONSISTENT is the big deal.
 
 def test_handle_connection():
     conn = FakeConnection("GET / HTTP/1.0\r\n\r\n")
@@ -83,3 +95,5 @@ def test_post_connection():
 
     assert conn.sent == expected_return, 'Got: %s' % (repr(conn.sent),)
 
+# ~CAT : You didn't test for failure conditions...
+# What happens if a PUT or DELETE comes in? Or a page that doesn't exist?

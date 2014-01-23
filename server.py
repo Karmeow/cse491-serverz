@@ -30,7 +30,8 @@ def handle_connection(conn):
 
     else:
         conn.send("HTTP/1.0 200 OK\r\n")
-        conn.send("Content-type: text/html\r\n")
+        conn.send("Content-Type: text/html\r\n")
+        # ~CAT :           ^ This should be capital to meet HTML spec. Fixed.
         conn.send("\r\n")
 
         if (data[1] == "/content"):
@@ -43,6 +44,13 @@ def handle_connection(conn):
             conn.send("<b>Ya'll requested some image</b>")
 
         else:
+            # ~CAT: Doing it this way is technically OK, if you don't want
+            #  people to know if they tried accessing a page that doesn't exist.
+            # IE: Try accessing "/foobar". Do you want that to assume they want
+            #  the index, or would you rather tell them that 'foobar' doesn't
+            #  exist?
+            #  Whichever way you want to do it is fine, just make sure your
+            #  intentions are made clear.
             conn.send("<h1>Hello, world.</h1>")
             conn.send("This is Karmeow's Web server.")
             conn.send('<p><a href="/content">Content :)</a></p>')
