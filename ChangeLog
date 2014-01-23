@@ -1,4 +1,12 @@
 2014-01-07  Titus Brown  <t@Titus-MacBook-Air-2.local>
 
  * Initialized repository, created server.py and README.
+
+2014-01-14  Kevin Karabon 
  * Server now sends a 200 OK HTTP response upon connection, displaying a new message
+
+2014-01-21	Kevin Karabon
+ * Fixed the endlines to include \r\n
+ * Modified html to include links for file, image, and content
+ * Added support for /content + /file + /image GET requests
+ * Added support for POST requests
