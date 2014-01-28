@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from urlparse import urlparse
 import random
 import socket
 import time
