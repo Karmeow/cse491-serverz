@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from urlparse import urlparse
+import urlparse
 import random
 import socket
 import time
@@ -24,41 +24,88 @@ def main():
 
 def handle_connection(conn):
     data = conn.recv(1000)
+
+    if (not (data)):   # Bye indexing error
+        return
+
+    poststr = data
     data = data.split(" ")
 
+    parse = urlparse.urlparse(data[1])
+    if (parse.query):
+        queryParse = urlparse.parse_qs(parse.query)
+
+
     if (data[0] == "POST"):
-        conn.send("hello world")
+        if (poststr.find("application/x-www-form-urlencoded") != -1):
+            fni = poststr.find('firstname')
+            queryParse = urlparse.parse_qs(poststr[fni:])
+            ok200Response(conn)
+            submit(conn, queryParse)
 
-    else:
-        conn.send("HTTP/1.0 200 OK\r\n")
-        conn.send("Content-Type: text/html\r\n")
-        # ~CAT :           ^ This should be capital to meet HTML spec. Fixed.
-        conn.send("\r\n")
+    elif (data[0] == "GET"):
+        ok200Response(conn)
 
-        if (data[1] == "/content"):
-            conn.send("<b>Ya'll requested some content</b>")
+        if (parse.path == "/content"):
+            content(conn)
 
-        elif (data[1] == "/file"):
-            conn.send("<b>Ya'll requested some file</b>")
+        elif (parse.path == "/form"):
+            form(conn)
 
-        elif (data[1] == "/image"):
-            conn.send("<b>Ya'll requested some image</b>")
+        elif (parse.path == "/submit"):
+		    submit(conn, queryParse)
+
+        elif (parse.path == "/file"):
+            file(conn)
+
+        elif (parse.path == "/image"):
+            image(conn)
+
+        elif (parse.path == "/"):
+            index(conn)
 
         else:
-            # ~CAT: Doing it this way is technically OK, if you don't want
-            #  people to know if they tried accessing a page that doesn't exist.
-            # IE: Try accessing "/foobar". Do you want that to assume they want
-            #  the index, or would you rather tell them that 'foobar' doesn't
-            #  exist?
-            #  Whichever way you want to do it is fine, just make sure your
-            #  intentions are made clear.
-            conn.send("<h1>Hello, world.</h1>")
-            conn.send("This is Karmeow's Web server.")
-            conn.send('<p><a href="/content">Content :)</a></p>')
-            conn.send('<p><a href="/file">File :)</a></p>')
-            conn.send('<p><a href="/image">Image :(</a></p>')
+            # @karabonk TODO add exception code
+		    conn.send("NOPE")
+
+    else:
+        # @karabonk TODO add exception code
+        conn.send("NOPE")
 
     conn.close()
+
+def ok200Response(conn):
+    conn.send("HTTP/1.0 200 OK\r\n")
+    conn.send("Content-Type: text/html\r\n")
+    conn.send("\r\n")
+
+def index(conn):
+    conn.send("<h1>Hello, world.</h1>")
+    conn.send("This is Karmeow's Web server.")
+    conn.send('<p><a href="/content">Content :)</a></p>')
+    conn.send('<p><a href="/file">File :)</a></p>')
+    conn.send('<p><a href="/image">Image :(</a></p>')
+    conn.send('<p><a href="/form">Form</a></p>')
+
+def submit(conn, qP):
+    sendString = "<h1>Hello Mr. %s %s</h1>" % (qP['firstname'][0], qP['lastname'][0])
+    conn.send(sendString)
+
+def image(conn):
+    conn.send("<b>Ya'll requested some image</b>")
+
+def file(conn):
+    conn.send("<b>Ya'll requested some file</b>")
+
+def content(conn):
+    conn.send("<b>Ya'll requested some content</b>")
+
+def form(conn):
+    conn.send("<form action='/submit' method='GET'>")
+    conn.send("First Name:<input type='text' name='firstname'><br>")
+    conn.send("Last Name:<input type='text' name='lastname'>")
+    conn.send("<input type='submit' value='Submit'>")
+    conn.send("</form>")
 
 if __name__ == '__main__':
     main()
