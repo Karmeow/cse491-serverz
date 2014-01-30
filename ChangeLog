@@ -14,3 +14,8 @@
  2014-01-23  Chris Thomas (FireSBurnsmuP@github)
   * Added suggestions for documentation
   * Fixed mis-typed "Content-Type:" header that can cause issues in some browsers
+
+2014-01-29  Kevin Karabon
+ * Homework 3 changes
+ * Added form requests for both POST and GET
+ * Refactored main body of code into separate functions
