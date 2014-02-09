@@ -19,3 +19,11 @@
  * Homework 3 changes
  * Added form requests for both POST and GET
  * Refactored main body of code into separate functions
+
+2014-02-06  Kevin Karabon
+ * Homework 4
+ * Used Field Storage to parse POST data
+ * Fixed code to work with arbitrary size reqeusts
+ * Added jinja2 templating support
+ * 404 now working
+ * 95% coverage on server with nose, 3 lines not "covered" in main
