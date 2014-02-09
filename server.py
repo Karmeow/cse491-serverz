@@ -6,7 +6,7 @@ import time
 import cgi
 import StringIO
 import jinja2
-
+#
 def handle_connection(conn):
     # Start connection and receive data through headers
     data = conn.recv(1)
