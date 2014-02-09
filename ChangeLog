@@ -27,3 +27,9 @@
  * Added jinja2 templating support
  * 404 now working
  * 95% coverage on server with nose, 3 lines not "covered" in main
+
+2014-02-09  Kevin Karabon
+ * Homework 5
+ * Implemented a WGSI
+ * Updated tests and added extra test for invalid HTTP methods
+ * Edited templates to dervie from a base
