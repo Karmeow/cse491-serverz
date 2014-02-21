@@ -8,20 +8,20 @@ import StringIO
 import app
 
 
-import quixote
+#import quixote
 #from quixote.demo import create_publisher
 #from quixote.demo.mini_demo import create_publisher
-from quixote.demo.altdemo import create_publisher
+#from quixote.demo.altdemo import create_publisher
 
-_the_app = None
-def make_app():
-    global _the_app
-
-    if _the_app is None:
-        p = create_publisher()
-        _the_app = quixote.get_wsgi_app()
-
-    return _the_app
+#_the_app = None
+#def make_app():
+#    global _the_app
+#
+#    if _the_app is None:
+#        p = create_publisher()
+#        _the_app = quixote.get_wsgi_app()
+#
+#    return _the_app
 
 def handle_connection(conn):
 
@@ -71,7 +71,7 @@ def handle_connection(conn):
         conn.send('%s : %s' % (response_headers[0][0], response_headers[0][1]))
         conn.send('\r\n\r\n')
 
-    app1 = make_app()
+    app1 = app.make_app()
     result = app1(environ, start_response)
 
     for data in result:
