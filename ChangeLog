@@ -33,3 +33,10 @@
  * Implemented a WGSI
  * Updated tests and added extra test for invalid HTTP methods
  * Edited templates to dervie from a base
+
+2014-02-20  Kevin Karabon
+ * Homework 6
+ * Added a serve file and serve image function to display an image
+ * Made sure that Quixote demo apps ran just swimmingly
+ * Put a validator in simple app due to bug, not sure if there are errors though. 
+

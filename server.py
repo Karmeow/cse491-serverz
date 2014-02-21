@@ -9,9 +9,9 @@ import app
 
 
 import quixote
-from quixote.demo import create_publisher
+#from quixote.demo import create_publisher
 #from quixote.demo.mini_demo import create_publisher
-#from quixote.demo.altdemo import create_publisher
+from quixote.demo.altdemo import create_publisher
 
 _the_app = None
 def make_app():
@@ -73,6 +73,7 @@ def handle_connection(conn):
 
     app1 = make_app()
     result = app1(environ, start_response)
+
     for data in result:
         conn.send(data)
 

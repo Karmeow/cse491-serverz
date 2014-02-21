@@ -20,7 +20,9 @@ class FakeConnection(object):
         return r
 
     def send(self, s):
-        self.sent += s
+        if len(self.sent) < 10000:  # For huge resolution images
+            self.sent += s
+
 
     def close(self):
         self.is_closed = True
@@ -30,7 +32,7 @@ def test_handle_connection():
     expected_return = 'HTTP/1.0 200 OK'
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_handle_content_connection():
@@ -39,7 +41,7 @@ def test_handle_content_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_handle_file_connection():
@@ -48,7 +50,7 @@ def test_handle_file_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_handle_image_connection():
@@ -57,7 +59,7 @@ def test_handle_image_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_form_connection():
@@ -67,7 +69,7 @@ def test_form_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_app_post_connection():
@@ -83,7 +85,7 @@ def test_app_post_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_multi_post_connection():
@@ -103,7 +105,7 @@ def test_multi_post_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
 def test_bad_connection():
@@ -113,16 +115,16 @@ def test_bad_connection():
 
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
-    
+
 def test_put_connection():
     conn = FakeConnection('PUT / HTTP/1.0\r\n\r\n')
-    
+
     expected_return = 'HTTP/1.0 404 Not Found'
-    
+
     server.handle_connection(conn)
     splitconn = conn.sent.split('\r\n')[0]
-    
+
     assert splitconn == expected_return, 'Got: %s' %(repr(conn.sent),)
 
