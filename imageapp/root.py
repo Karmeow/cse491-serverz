@@ -25,7 +25,6 @@ class RootDirectory(Directory):
         data = the_file.read(int(1e9))
 
         image.add_image(data)
-
         return quixote.redirect('./')
 
     @export(name='image')

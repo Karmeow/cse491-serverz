@@ -42,4 +42,7 @@
 
 2014-02-23  Kevin Karabon
  * Homework 7
+ * Added cookie header handling
+ * Added image to index
+ * Fixed issue with status_response and headers
 
