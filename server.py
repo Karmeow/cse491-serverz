@@ -7,8 +7,8 @@ import cgi
 import StringIO
 import app
 
-
-#import quixote
+import imageapp
+import quixote
 #from quixote.demo import create_publisher
 #from quixote.demo.mini_demo import create_publisher
 #from quixote.demo.altdemo import create_publisher
@@ -51,27 +51,34 @@ def handle_connection(conn):
         while len(content) < int(headers['content-length']):
             content += conn.recv(1)
 
-
     path = urlparse.urlparse(req[1])
+
     # Create the environ dict for the app
     environ = {}
     environ['REQUEST_METHOD'] = req[0]
     environ['PATH_INFO'] = path.path
     environ['QUERY_STRING'] = path.query
+    environ['SERVER_NAME'] = headers['host']
     if 'content-type' in headers:
         environ['CONTENT_TYPE'] = headers['content-type']
     if 'content-length' in headers:
         environ['CONTENT_LENGTH'] = headers['content-length']
     environ['wsgi.input'] = StringIO.StringIO(content)
     environ['SCRIPT_NAME'] = ''
+    environ['HTTP_COOKIE'] = headers['cookie']
 
     def start_response(status, response_headers):
         conn.send('HTTP/1.0 %s' % status)
         conn.send('\r\n')
-        conn.send('%s : %s' % (response_headers[0][0], response_headers[0][1]))
-        conn.send('\r\n\r\n')
 
-    app1 = app.make_app()
+        for head in response_headers:
+            key, value = head
+            conn.send('%s : %s' % (key, value))
+            conn.send('\r\n')
+
+        conn.send('\r\n')
+
+    app1 = quixote.get_wsgi_app()
     result = app1(environ, start_response)
 
     for data in result:
@@ -80,6 +87,10 @@ def handle_connection(conn):
     conn.close()
 
 def main():
+    imageapp.setup()
+    p = imageapp.create_publisher()
+
+
     s = socket.socket()         # Create a socket object
     host = socket.getfqdn() # Get local machine name
     port = random.randint(8000, 9999)
@@ -96,7 +107,10 @@ def main():
         c, (client_host, client_port) = s.accept()
         print 'Got connection from', client_host, client_port
 
-        handle_connection(c)
+        try:
+            handle_connection(c)
+        finally:
+            imageapp.teardown()
 
 
 
