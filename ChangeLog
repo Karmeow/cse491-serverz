@@ -48,4 +48,13 @@
 
 2014-03-16  Kevin Karabon
  * Homework 8
+ * Added command line functionality, -A for which app and -p for port
+ * Created twill tests for my app
+ * Created simple comments for imageapp, which reset after image is uploaded
+ * Uses a comment class with a name and comment attribute. These
+   are added to a dictionary key called "com" which is then passed into
+   the jinja2 template for rendering. The template interates through
+   the list of comments and displays them in a basic css box.
+
+
 

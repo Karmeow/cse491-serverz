@@ -20,5 +20,6 @@ def init_templates():
     env = jinja2.Environment(loader=loader)
 
 def render(template_name, values={}):
+    print values
     template = env.get_template(template_name)
     return template.render(values)
