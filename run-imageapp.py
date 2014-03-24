@@ -18,7 +18,7 @@ from wsgiref.simple_server import make_server
 
 host = socket.getfqdn() # Get local machine name
 #port = random.randint(8000, 9999)
-port = 8000
+port = random.randint(8000,9999)
 httpd = make_server('', port, wsgi_app)
 print "Serving at http://%s:%d/..." % (host, port,)
 

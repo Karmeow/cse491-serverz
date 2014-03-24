@@ -5,4 +5,18 @@
 <a href='image'>Show most recent image</a>
 <p>
 <img width=40% src='image_raw?special=latest'/>
+<form enctype='multipart/form-data' action='/' method='POST'>
+Name:<p> <input type='text' name='name'><p>
+Comment:<br>
+<textarea name='comment' id='comment'></textarea><br>
+<input type='submit'>
+</form>
+
+
+{% for item in com %}
+<div class="comment">
+User: <b>{{item.name}}</b>
+<p>{{item.com}}</p>
+</div>
+{% endfor %}
 {% endblock %}

@@ -1,14 +1,20 @@
 import quixote
+import cgi
 from quixote.directory import Directory, export, subdir
-
-from . import html, image
+from . import html, image, comment
 
 class RootDirectory(Directory):
     _q_exports = []
 
     @export(name='')                    # this makes it public.
     def index(self):
-        return html.render('index.html')
+        request = quixote.get_request()
+        if len(request.form.keys()):
+            name = request.form['name']
+            com = request.form['comment']
+            x = comment.Comment(name,com)
+
+        return html.render('index.html', values = {"com":comment.comments})
 
     @export(name='upload')
     def upload(self):
@@ -25,6 +31,7 @@ class RootDirectory(Directory):
         data = the_file.read(int(1e9))
 
         image.add_image(data)
+        comment.comments = []
         return quixote.redirect('./')
 
     @export(name='image')

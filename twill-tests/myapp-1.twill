@@ -1,0 +1,24 @@
+find "This is Karmeow's Web server."
+code 200
+
+follow Content
+find "Ya'll requested some content"
+code 200
+go /
+
+follow File
+find "The cat was fat"
+code 200
+go /
+
+follow Image
+code 200
+go /
+
+follow Form
+fv 1 firstname "Robert"
+fv 1 lastname "Paulson"
+submit Submit
+find "Hello Mr. Robert Paulson"
+code 200
+
