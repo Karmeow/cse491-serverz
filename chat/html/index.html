@@ -38,8 +38,8 @@ $(document).ready(function() {
         author = $("author", message).text();
         content = $("text", message).text();
 
-        $("#messagewindow").prepend("<b>" + author + "</b>:" + content 
-                                    + "<br>");
+        $("#messagewindow").prepend("<b>" + author + "</b> <i>(" + timestamp +
+                                    ")</i>: " + content  + "<br>");
      });
   };
 

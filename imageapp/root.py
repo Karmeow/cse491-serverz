@@ -32,7 +32,8 @@ class RootDirectory(Directory):
 
         image.add_image(data)
         comment.comments = []
-        return quixote.redirect('./')
+        return
+        #return quixote.redirect('./')
 
     @export(name='image')
     def image(self):
