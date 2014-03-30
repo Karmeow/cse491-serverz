@@ -56,5 +56,11 @@
    the jinja2 template for rendering. The template interates through
    the list of comments and displays them in a basic css box.
 
-
+2014-03-25  Kevin Karabon
+ * Homework 9
+ * Added both quotes and chat apps to be used with my server
+ * '/' is now the default page for quotes, '/quotes-2.html' will still work
+ * Added time within chat box
+ * My image upload now uses a very simple jQuery Form Plugin which I found
+   online. 
 

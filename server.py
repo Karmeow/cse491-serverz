@@ -97,6 +97,14 @@ def handle_connection(conn, pargs):
     if (pargs['A'] == 'altdemo'):
         _the_app = make_app()
 
+    elif (pargs['A'] == 'quotes'):
+        from quotes import apps
+        _the_app = apps.QuotesApp('quotes/quotes.txt', './quotes/html')
+
+    elif (pargs['A'] == 'chat'):
+        from chat import apps
+        _the_app = apps.ChatApp('./chat/html')
+
     elif (pargs['A'] == 'myapp'):
         _the_app = app.make_app()
 
@@ -117,8 +125,8 @@ def handle_connection(conn, pargs):
 
 def main():
     parser = argparse.ArgumentParser(description='Process server info')
-    parser.add_argument('-A', default='image', choices=['image', 'altdemo', 'myapp'],
-                       type=str)
+    parser.add_argument('-A', default='image', choices=['image', 'altdemo', 'myapp',
+                        'quotes', 'chat'], type=str)
     parser.add_argument('-p', type=int, choices=range(8000,10000),
                         default=random.randint(8000,9999))
     args = parser.parse_args()
