@@ -17,3 +17,12 @@ def get_image(num):
 def get_latest_image():
     image_num = max(images.keys())
     return images[image_num]
+
+def get_image_list():
+    count = 0
+    img_list = []
+    while (count < len(images)):
+        img_list.append(count)
+        count += 1
+
+    return img_list
