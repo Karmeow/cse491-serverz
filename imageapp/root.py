@@ -1,7 +1,9 @@
 import quixote
 import cgi
+import StringIO
 from quixote.directory import Directory, export, subdir
 from . import html, image, comment
+from PIL import Image
 
 class RootDirectory(Directory):
     _q_exports = []
@@ -41,7 +43,33 @@ class RootDirectory(Directory):
 
     @export(name='image_raw')
     def image_raw(self):
+        request = quixote.get_request()
         response = quixote.get_response()
         response.set_content_type('image/png')
-        img = image.get_latest_image()
+        query = request.get_query()
+        query_value = query[query.find('=')+1:]
+
+        if (query_value == 'latest'):
+            img = image.get_latest_image()
+        else:
+            img = image.get_image(int(query_value))
+            buff = StringIO.StringIO()
+            buff.write(img)
+            buff.seek(0)
+            img = Image.open(buff)
+            basewidth = 75
+            wpercent = (basewidth/float(img.size[0]))
+            hsize = int((float(img.size[1])*float(wpercent)))
+            img = img.resize((basewidth, hsize), Image.ANTIALIAS)
+            output = StringIO.StringIO()
+            img.save(output, format="png")
+            img = output.getvalue()
+
         return img
+
+    @export(name='image_list')
+    def image_list(self):
+        #response = quixote.get_response()
+        #response.set_content_type('image/png')
+        img_list = image.get_image_list()
+        return html.render('image_list.html', values = {"images":img_list})

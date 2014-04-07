@@ -1,4 +1,4 @@
-2014-01-07  Titus Brown  <t@Titus-MacBook-Air-2.local>
+214-01-07  Titus Brown  <t@Titus-MacBook-Air-2.local>
 
  * Initialized repository, created server.py and README.
 
@@ -63,4 +63,11 @@
  * Added time within chat box
  * My image upload now uses a very simple jQuery Form Plugin which I found
    online. 
+
+2014-03-30  Kevin Karabon
+  * Homework 10
+  * Added a new url for the list of all uploaded images, which are displayed
+    by their thumbnails
+  * These thumbnails are resized using Pillow, a forked PIL repository which
+    is kept more up to date per internet sources
 

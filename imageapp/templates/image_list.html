@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title>image list</title>
+<h1>List of images</h1>
+
+{% for image in images %}
+<p>
+<img src='image_raw?special={{ image }}'/>
+{% endfor %}
+
+{% endblock %}
