@@ -1,27 +1,45 @@
 # image handling API
+import sqlite3
 
-images = {}
+images_size = 0
 
 def add_image(data):
-    if images:
-        image_num = max(images.keys()) + 1
-    else:
-        image_num = 0
-
-    images[image_num] = data
-    return image_num
+    db = sqlite3.connect('images.sqlite')
+    db.text_factory = bytes
+    db.execute('INSERT INTO image_store (image) VALUES (?)',(data,))
+    db.commit()
+    return 1
 
 def get_image(num):
-    return images[num]
+    db = sqlite3.connect('images.sqlite')
+    db.text_factory = bytes
+    
+    c = db.cursor()
+    c.execute('SELECT i,image FROM image_store WHERE i=?', (num))
+    i, image = c.fetchone()
+    return image
 
 def get_latest_image():
-    image_num = max(images.keys())
-    return images[image_num]
+    db = sqlite3.connect('images.sqlite')
+    db.text_factory = bytes
+
+    c = db.cursor()
+    c.execute('SELECT i,image FROM image_store ORDER BY i DESC LIMIT 1')
+    #image_num = max(images.keys())
+    #return images[image_num]
+    i, image =  c.fetchone()
+    return image
 
 def get_image_list():
-    count = 0
+    db = sqlite3.connect('images.sqlite')
+    db.text_factory = bytes
+    c = db.cursor()
+    c.execute('SELECT i,image FROM image_store ORDER BY i DESC LIMIT 1')
+    i, image =  c.fetchone()
+    print i
+    count = 1
     img_list = []
-    while (count < len(images)):
+    while (count < i+1):
         img_list.append(count)
         count += 1
 

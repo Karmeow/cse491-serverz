@@ -1,6 +1,6 @@
 comments = []
 
-class Comment:
+class Comment(object):
     def __init__(self, name, com):
         self.name = name
         self.com = com

@@ -4,6 +4,7 @@ import StringIO
 from quixote.directory import Directory, export, subdir
 from . import html, image, comment
 from PIL import Image
+import sqlite3
 
 class RootDirectory(Directory):
     _q_exports = []
@@ -48,11 +49,11 @@ class RootDirectory(Directory):
         response.set_content_type('image/png')
         query = request.get_query()
         query_value = query[query.find('=')+1:]
-
+        
         if (query_value == 'latest'):
             img = image.get_latest_image()
         else:
-            img = image.get_image(int(query_value))
+            img = image.get_image(query_value)
             buff = StringIO.StringIO()
             buff.write(img)
             buff.seek(0)
