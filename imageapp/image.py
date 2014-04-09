@@ -3,10 +3,11 @@ import sqlite3
 
 images_size = 0
 
-def add_image(data):
+def add_image(data, title, description):
     db = sqlite3.connect('images.sqlite')
     db.text_factory = bytes
-    db.execute('INSERT INTO image_store (image) VALUES (?)',(data,))
+    db.execute('INSERT INTO image_store (image, title, description) \
+                VALUES (?, ?, ?)' ,(data, title, description))
     db.commit()
     return 1
 
@@ -15,7 +16,7 @@ def get_image(num):
     db.text_factory = bytes
     
     c = db.cursor()
-    c.execute('SELECT i,image FROM image_store WHERE i=?', (num))
+    c.execute('SELECT i,image FROM image_store WHERE i=?', (num,))
     i, image = c.fetchone()
     return image
 

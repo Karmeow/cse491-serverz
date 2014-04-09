@@ -11,6 +11,10 @@ form { display: block; margin: 20px auto; background: #eee; border-radius: 10px;
 <body>
     <h1>Upload a PNG</h1>
 	    <form action="upload_receive" method="post" enctype="multipart/form-data">
+        Title: <br>
+        <input type="text" name="title"><br>
+        Description: <br>
+        <textarea name="description" id="description"></textarea><br><br>
         <input type="file" name="file"><br>
         <input type="submit" value="Upload File to Server">
     </form>

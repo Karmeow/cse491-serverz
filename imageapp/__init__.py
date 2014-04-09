@@ -19,19 +19,17 @@ def setup():                            # stuff that should be run once.
 
     if (not os.path.isfile('images.sqlite')):
         db = sqlite3.connect('images.sqlite')
-        db.execute('CREATE TABLE image_store (i INTEGER PRIMARY KEY, image BLOB)')
+        db.execute('CREATE TABLE image_store (i INTEGER PRIMARY KEY, \
+                                              image BLOB,            \
+                                              title TEXT,            \
+                                              description TEXT)')    
         db.commit()
-
         db.text_factory = bytes
         some_data = open('imageapp/dice.png', 'rb').read()
-        image.add_image(some_data)
-        
-        # insert first image with num starting at 0
-        #db.execute('INSERT INTO image_store (image) VALUES (?)',
-        #          (some_data,))
+        image.add_image(some_data, 'Dice', 'Four six sided dice')
+        print 'here'
         db.commit()
         db.close()
-        #image.add_image(some_data)
 
 
 def teardown():                         # stuff that should be run once.
