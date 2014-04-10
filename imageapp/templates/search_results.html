@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Search Results</h1>
+{% for image in images %}
+<p>
+<img src='image_raw?special={{ image }}'/>
+{% endfor %}
+{% endblock %}

@@ -75,4 +75,17 @@ class RootDirectory(Directory):
         #response = quixote.get_response()
         #response.set_content_type('image/png')
         img_list = image.get_image_list()
-        return html.render('image_list.html', values = {"images":img_list})
+        return html.render('image_list.html', values={"images":img_list})
+
+    @export(name='image_search')
+    def image_search(self):
+        return html.render('image_search.html')
+
+    @export(name='search')
+    def search(self):
+        request = quixote.get_request()
+        term_str = request.form['terms']
+        terms = term_str.split(' ')
+        img_list = image.image_traverse(terms)
+        print img_list
+        return html.render('search_results.html', values={"images":img_list})

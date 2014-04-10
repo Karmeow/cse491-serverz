@@ -45,3 +45,40 @@ def get_image_list():
         count += 1
 
     return img_list
+
+def image_traverse(terms):
+    db = sqlite3.connect('images.sqlite')
+    db.text_factory = bytes
+    c = db.cursor()
+    c.execute('SELECT title, description FROM image_store')
+    image_list = c.fetchall()
+
+    found_image_list = []
+    count = 1
+
+
+    # Iterate through title elements
+    for x in image_list:
+        title_list = x[0].split(' ')
+        title_list = [z.lower() for z in title_list]
+        for y in terms:
+            if (y.lower() in title_list) and (count not in found_image_list):
+                found_image_list.append(count)
+                break
+        count += 1
+    
+    count = 1
+    # Iterate through description elements
+    for x in image_list:
+        desc_list = x[1].split(' ')
+        desc_list = [z.lower() for z in desc_list]
+        for y in terms:
+            if (y in desc_list) and (count not in found_image_list):
+                found_image_list.append(count)
+                break
+        count += 1
+
+    print found_image_list
+    return found_image_list
+
+
