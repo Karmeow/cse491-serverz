@@ -1,24 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href='upload'>Upload an image</a> |
-<a href='image'>Show most recent image</a> |
-<a href='image_list'>Show all images</a> |
-<a href='image_search'>Search for an image</a> 
-<p>
-<img width=40% src='image_raw?special=latest'/>
-<form enctype='multipart/form-data' action='/' method='POST'>
-Name:<p> <input type='text' name='name'><p>
-Comment:<br>
-<textarea name='comment' id='comment'></textarea><br>
-<input type='submit'>
-</form>
+<div class="container">
+
+	<div class="header">
+		
+		<div class="title">
+			<h1>Imageapp</h1>
+		</div>
+
+		<div class="navigation">
+			<a href='upload'>Upload an image</a> 
+            <a href='image'>Show most recent image</a> 
+            <a href='image_list'>Show all images</a> 
+            <a href='image_search'>Search for an image</a> 
+			<div class="clearer"><span></span></div>
+		</div>
+
+	</div>
+
+	<div class="main">
+		
+		<div class="content">
+            <img width=40% src='image_raw?special=latest'/>
+            <form enctype='multipart/form-data' action='/' method='POST'>
+            Name:<p> <input type='text' name='name'><p>
+            Comment:<br>
+            <textarea name='comment' id='comment'></textarea><br>
+            <input type='submit'>
+            </form>
 
 
-{% for item in com %}
-<div class="comment">
-User: <b>{{item.name}}</b>
-<p>{{item.com}}</p>
+            {% for item in com %}
+            <div class="comment">
+            User: <b>{{item.name}}</b>
+            <p>{{item.com}}</p>
+            </div>
+            {% endfor %}
+			
+
+		</div>
+	
+		<div class="clearer"><span></span></div>
+
+	</div>
+
 </div>
-{% endfor %}
 {% endblock %}

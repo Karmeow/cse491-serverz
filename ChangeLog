@@ -73,5 +73,11 @@
 
 2014-04-07  Kevin Karabon
   * Homework 11
+  * Added image metadata so that an image is now tited to both a name and a
+    description
+  * Added image search based on the image metadata collected, displays
+    thumbnails of relevant images
 
-
+2014-04-13  Kevin Karabon
+  * Homework 12
+  * Added a template from oswd.org to the site, small modifications

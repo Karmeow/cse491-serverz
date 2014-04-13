@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Search Results</h1>
-{% for image in images %}
-<p>
-<img src='image_raw?special={{ image }}'/>
-{% endfor %}
+<div class="container">
+
+	<div class="header">
+		
+		<div class="title">
+			<h1>Image Search Results</h1>
+		</div>
+
+        <div class="main">
+		
+		<div class="content">
+            {% for image in images %}
+            <p>
+            <img src='image_raw?special={{ image }}'/>
+            {% endfor %}
+        </div><div class="clearer"><span></span></div></div>
+</div>
+</div>
 {% endblock %}

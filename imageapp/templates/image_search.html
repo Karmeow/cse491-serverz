@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Image search</h1>
+<div class="container">
 
-<form enctype='multipart/form-data' action='/search' method='POST'>
-Search Terms: <input type='text' name='terms'>
-			  <input type='submit' value='Search'></form><br>
-<i>Please separate terms by spaces</i>
+	<div class="header">
+		
+		<div class="title">
+			<h1>Image Search</h1>
+		</div>
+
+        <div class="main">
+		
+		<div class="content">
+            <form enctype='multipart/form-data' action='/search' method='POST'>
+            Search Terms: <input type='text' name='terms'>
+			 <input type='submit' value='Search'></form><br>
+                <i>Please separate terms by spaces</i>
+        </div><div class="clearer"><span></span></div></div>
+</div>
+</div>
 {% endblock %}

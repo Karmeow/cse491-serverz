@@ -89,3 +89,10 @@ class RootDirectory(Directory):
         img_list = image.image_traverse(terms)
         print img_list
         return html.render('search_results.html', values={"images":img_list})
+        
+    @export(name='default.css')
+    def default_css(self):
+        response = quixote.get_response()
+        response.set_content_type('text/css')
+        css_file = open('imageapp/templates/default.css', 'rb')
+        return css_file.read()
