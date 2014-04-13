@@ -4,6 +4,7 @@ import StringIO
 from quixote.directory import Directory, export, subdir
 from . import html, image, comment
 from PIL import Image
+import sqlite3
 
 class RootDirectory(Directory):
     _q_exports = []
@@ -28,11 +29,13 @@ class RootDirectory(Directory):
         print request.form.keys()
 
         the_file = request.form['file']
+        title = request.form['title']
+        description = request.form['description']
         print dir(the_file)
         print 'received file with name:', the_file.base_filename
         data = the_file.read(int(1e9))
 
-        image.add_image(data)
+        image.add_image(data, title, description)
         comment.comments = []
         return
         #return quixote.redirect('./')
@@ -48,11 +51,11 @@ class RootDirectory(Directory):
         response.set_content_type('image/png')
         query = request.get_query()
         query_value = query[query.find('=')+1:]
-
+        
         if (query_value == 'latest'):
             img = image.get_latest_image()
         else:
-            img = image.get_image(int(query_value))
+            img = image.get_image(query_value)
             buff = StringIO.StringIO()
             buff.write(img)
             buff.seek(0)
@@ -72,4 +75,17 @@ class RootDirectory(Directory):
         #response = quixote.get_response()
         #response.set_content_type('image/png')
         img_list = image.get_image_list()
-        return html.render('image_list.html', values = {"images":img_list})
+        return html.render('image_list.html', values={"images":img_list})
+
+    @export(name='image_search')
+    def image_search(self):
+        return html.render('image_search.html')
+
+    @export(name='search')
+    def search(self):
+        request = quixote.get_request()
+        term_str = request.form['terms']
+        terms = term_str.split(' ')
+        img_list = image.image_traverse(terms)
+        print img_list
+        return html.render('search_results.html', values={"images":img_list})

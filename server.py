@@ -108,6 +108,10 @@ def handle_connection(conn, pargs):
     elif (pargs['A'] == 'myapp'):
         _the_app = app.make_app()
 
+    elif (pargs['A'] == 'cookie'):
+        import cookieapp
+        _the_app = cookieapp.wsgi_app
+
     else:
         _the_app = quixote.get_wsgi_app()
 
@@ -126,7 +130,7 @@ def handle_connection(conn, pargs):
 def main():
     parser = argparse.ArgumentParser(description='Process server info')
     parser.add_argument('-A', default='image', choices=['image', 'altdemo', 'myapp',
-                        'quotes', 'chat'], type=str)
+                        'quotes', 'chat', 'cookie'], type=str)
     parser.add_argument('-p', type=int, choices=range(8000,10000),
                         default=random.randint(8000,9999))
     args = parser.parse_args()
