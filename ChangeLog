@@ -81,3 +81,6 @@
 2014-04-13  Kevin Karabon
   * Homework 12
   * Added a template from oswd.org to the site, small modifications
+  * Image now loads images from database upon initialization
+  * Added SQL data persistance to comments, comments only show for the
+    latest image, I'll eventually come up with a better looking solution
