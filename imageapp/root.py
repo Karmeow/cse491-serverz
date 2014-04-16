@@ -15,7 +15,7 @@ class RootDirectory(Directory):
         if len(request.form.keys()):
             name = request.form['name']
             com = request.form['comment']
-            x = comment.Comment(name,com)
+            x = comment.Comment(name,com, 0)
 
         return html.render('index.html', values = {"com":comment.comments})
 
@@ -36,7 +36,7 @@ class RootDirectory(Directory):
         data = the_file.read(int(1e9))
 
         image.add_image(data, title, description)
-        comment.comments = []
+        comment.reset()
         return
         #return quixote.redirect('./')
 
@@ -55,7 +55,7 @@ class RootDirectory(Directory):
         if (query_value == 'latest'):
             img = image.get_latest_image()
         else:
-            img = image.get_image(query_value)
+            img = image.get_image(int(query_value))
             buff = StringIO.StringIO()
             buff.write(img)
             buff.seek(0)
