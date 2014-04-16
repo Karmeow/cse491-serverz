@@ -1,31 +1,52 @@
-<title>File Upload</title>
-<style>
-body { padding: 30px }
-form { display: block; margin: 20px auto; background: #eee; border-radius: 10px; padding: 15px }
+{% extends "base.html" %}
 
-.progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
-.bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
-.percent { position:absolute; display:inline-block; top:3px; left:48%; }
-</style>
-</head>
-<body>
-    <h1>Upload a PNG</h1>
-	    <form action="upload_receive" method="post" enctype="multipart/form-data">
+{% block content %}
+
+<title>File Upload</title>
+
+<div class="container">
+
+    <div class="header">
+        
+        <div class="title">
+            <h1>Upload a PNG</h1>
+        </div>
+
+        <div class="navigation">
+            <a href='/'>Main Page</a>
+            <a href='upload'>Upload an image</a> 
+            <a href='image'>Show most recent image</a> 
+            <a href='image_list'>Show all images</a> 
+            <a href='image_search'>Search for an image</a> 
+            <div class="clearer"><span></span></div>
+        </div>
+
+    </div>
+
+    <div class="main">
+        
+        <div class="content">
+            <form action="upload_receive" method="post" enctype="multipart/form-data">
         Title: <br>
         <input type="text" name="title"><br>
         Description: <br>
         <textarea name="description" id="description"></textarea><br><br>
         <input type="file" name="file"><br>
         <input type="submit" value="Upload File to Server">
-    </form>
-    
-    <div class="progress">
+        <p>
+        <div class="progress">
         <div class="bar"></div >
         <div class="percent">0%</div >
-    </div>
+        </div>
+        <p>
     
     <div id="status"></div>
-</body>
+
+        </div>
+    
+        <div class="clearer"><span></span></div>
+
+    </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
@@ -59,3 +80,4 @@ $('form').ajaxForm({
 }); 
 })();       
 </script>
+{% endblock %}
