@@ -54,6 +54,30 @@ class RootDirectory(Directory):
         
         if (query_value == 'latest'):
             img = image.get_latest_image()
+
+        ## CSS image serve
+        elif (query_value == 'bg.gif'):
+            return serve_css_image('imageapp/img/bg.gif')
+
+        elif (query_value == 'bgcode.gif'):
+            return serve_css_image('imageapp/img/bgcode.gif')
+
+        elif (query_value == 'quote.gif'):
+            return serve_css_image('imageapp/img/quote.gif')
+
+        elif (query_value == 'topleft.gif'):
+            return serve_css_image('imageapp/img/topleft.gif')
+
+        elif (query_value == 'bgmain.gif'):
+            return serve_css_image('imageapp/img/bgmain.gif')
+
+        elif (query_value == 'nav_li.gif'):
+            return serve_css_image('imageapp/img/nav_li.gif')
+
+        elif (query_value == 'bgfooter.gif'):
+            return serve_css_image('imageapp/img/bgfooter.gif')
+        # End CSS image serve
+
         else:
             img = image.get_image(int(query_value))
             buff = StringIO.StringIO()
@@ -96,3 +120,9 @@ class RootDirectory(Directory):
         response.set_content_type('text/css')
         css_file = open('imageapp/templates/default.css', 'rb')
         return css_file.read()
+
+def serve_css_image(path):
+    fp = open(path, 'rb')
+    data = fp.read()
+    fp.close()
+    return data

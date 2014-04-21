@@ -84,3 +84,6 @@
   * Image now loads images from database upon initialization
   * Added SQL data persistance to comments, comments only show for the
     latest image, I'll eventually come up with a better looking solution
+
+2014-04-21  Kevin Karabon
+  * Finally added simple support to serve required images from css
