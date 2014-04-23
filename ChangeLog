@@ -90,3 +90,19 @@
   * Added a data set of 11 images for others to test on their servers, which
     I have used to test on mine.
   * Added disqus to it's own disqus page. Much cool
+
+Projects Completed
+------------------
+1. Swiped oswd.org template and integrated into own imageapp
+2. Url which provides a list of images, resized to thumbnails
+3. Added image metadata
+4. Added image search based on metadata
+5. Added ability to comment on images
+6. Implemented AJAX image upload with JQuery
+7. Added data persistance in sqlite
+8. Made a generally useful fake data set
+9. Added a URL handeler for images
+10. Added disqus to my site
+11. Added thumbnail resizing via PIL
+
+Total points: 52.5 pls
