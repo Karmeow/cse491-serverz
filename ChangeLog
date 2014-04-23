@@ -89,3 +89,4 @@
   * Finally added simple support to serve required images from css
   * Added a data set of 11 images for others to test on their servers, which
     I have used to test on mine.
+  * Added disqus to it's own disqus page. Much cool

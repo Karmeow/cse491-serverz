@@ -121,6 +121,10 @@ class RootDirectory(Directory):
         css_file = open('imageapp/templates/default.css', 'rb')
         return css_file.read()
 
+    @export(name='disqus')
+    def disqus(self):
+        return html.render('disqus.html')
+
 def serve_css_image(path):
     fp = open(path, 'rb')
     data = fp.read()
